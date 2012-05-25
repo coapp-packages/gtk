@@ -1,0 +1,53 @@
+@import "version.inc";
+
+#product-info  {
+    product-name: "gtk+";
+    version: "${package-version}";
+    original-source-location: "http://ftp.acc.umu.se/pub/GNOME/sources/gtk+/2.24/gtk+-2.24.10.tar.xz";
+    original-source-website: "http://ftp.acc.umu.se/pub/GNOME/sources/gtk+";
+    license: "LGPL 2";
+    packager: "Vincent Povirk <madewokherd@gmail.com>";
+}
+
+x86 {
+	requires: {
+		"glib-dev[vc10]-${glib-dep-version}-x86-${glib-dep-publickeytoken}",
+		"libintl-dev[vc10]-${libintl-dep-version}-x86-${libintl-dep-publickeytoken}",
+		"pango-dev[vc10]-${pango-dep-version}-x86-${pango-dep-publickeytoken}",
+		"cairo-dev[vc10]-${cairo-dep-version}-x86-${cairo-dep-publickeytoken}",
+		"gdk-pixbuf-dev[vc10]-${gdk-pixbuf-dep-version}-x86-${gdk-pixbuf-dep-publickeytoken}",
+		"atk-dev[vc10]-${atk-dep-version}-x86-${atk-dep-publickeytoken}",
+	};
+
+	platform: x86;
+	compiler: vc10;
+
+	build-command: @"
+		if ""${BUILT}"" equ ""true"" goto end
+		msbuild /p:Platform=Win32 /p:Configuration=Release build\win32\vs10\gtk+.sln
+:end
+	";
+
+	targets: {
+		@"vs10\Win32\bin\gdk-win32-2-vs10.dll",
+		@"vs10\Win32\bin\gtk-win32-2-vs10.dll",
+		@"vs10\Win32\bin\gtk-demo\gtk-demo.exe",
+		@"vs10\Win32\lib\gdk-win32-2.0.lib",
+		@"vs10\Win32\lib\gtk-win32-2.0.lib",
+	};
+
+	clean-command: @"
+		rd /s /q vs10\win32
+		rd /q vs10
+		rd /s /q build\win32\vs10\Release
+		del gdk\gdkconfig.h
+		del config.h
+	";
+}
+
+release {
+	uses: x86;
+}
+
+test {
+}
