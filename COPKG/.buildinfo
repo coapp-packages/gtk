@@ -51,3 +51,21 @@ release {
 
 test {
 }
+
+package {
+	uses: release;
+
+	build-command: @"
+        cd COPKG
+        autopackage gtk+.autopkg || goto failed
+	";
+
+	targets: {
+		@"COPKG\gtk+[vc10]-${package-version}-x86.msi",
+	};
+
+	clean-command: @"
+		del COPKG\*.msi
+		del COPKG\*.wixpdb
+	";
+}

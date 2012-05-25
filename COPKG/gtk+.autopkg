@@ -1,0 +1,118 @@
+@import "version.inc";
+@import "compat.inc";
+@import "outercurve.inc";
+
+#define { 
+    flavor: "${comp??vc10}"; 
+    arch : "${plat??x86}";
+}
+
+package {
+    name: "gtk+[${flavor}]";
+    version: "${package-version}";
+    arch : "${arch}";
+
+    display-name: "GTK+";
+    location: "http://coapp.org/repository/${OutputFilename}";
+
+    feed: "http://coapp.org/repository/packages.atom.xml";
+    publisher: "CoApp Project";
+}
+
+license[LGPL2] {
+	license: @"..\COPYING";
+    license-url: "http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html";
+    license-type: "LGPL";
+}
+
+requires {
+    package: "glib[${flavor}]-${glib-dep-version}-${Package.Architecture}-${glib-dep-publickeytoken}";
+    package: "libintl[${flavor}]-${libintl-dep-version}-${Package.Architecture}-${libintl-dep-publickeytoken}";
+    package: "pango[${flavor}]-${pango-dep-version}-${Package.Architecture}-${pango-dep-publickeytoken}";
+    package: "cairo[${flavor}]-${cairo-dep-version}-${Package.Architecture}-${cairo-dep-publickeytoken}";
+    package: "gdk-pixbuf[${flavor}]-${gdk-pixbuf-dep-version}-${Package.Architecture}-${gdk-pixbuf-dep-publickeytoken}";
+    package: "atk[${flavor}]-${atk-dep-version}-${Package.Architecture}-${atk-dep-publickeytoken}";
+}
+
+metadata {  
+    summary: "GTK+";
+    description: @"GTK+ is a multi-platform toolkit for creating graphical user interfaces.";
+    author-version : "${author-version}";
+    bug-tracker: "https://github.com/coapp-packages/gtk/issues";
+    stability : "0";
+    licenses : {
+        LGPL2
+    };
+}
+
+signing {
+    attributes : {
+        company="Outercurve Foundation",
+        description="GTK+ is a multi-platform toolkit for creating graphical user interfaces.",
+        product-name="GTK+",
+        product-version="${package-version}",
+        file-version="${package-version}",
+    };
+
+    replace-signature: true; 
+    include: { 
+        gtkdll,
+		gdkdll
+    };
+}
+
+manifest[gtk] {
+    assembly : {
+        "glib[${flavor}]",
+        "libintl[${flavor}]",
+        "pango[${flavor}]",
+        "cairo[${flavor}]",
+        "gdk-pixbuf[${flavor}]",
+        "atk[${flavor}]",
+    };
+
+    include : { 
+        gtkdll
+    };
+}
+
+manifest[gdk] {
+    assembly : {
+        "glib[${flavor}]",
+        "libintl[${flavor}]",
+        "pango[${flavor}]",
+        "cairo[${flavor}]",
+        "gdk-pixbuf[${flavor}]",
+    };
+
+    include : { 
+        gdkdll
+    };
+}
+
+assembly[gtk+[${flavor}]] {
+    include : {
+        gtkdll,
+		gdkdll
+    };
+}
+
+files[gtkdll] {
+    root: @"..\vs10\Win32\bin";
+
+    include: {
+        "gtk-win32-2-vs10.dll",
+    };
+
+    trim-path: all;
+};
+
+files[gdkdll] {
+    root: @"..\vs10\Win32\bin";
+
+    include: {
+        "gdk-win32-2-vs10.dll",
+    };
+
+    trim-path: all;
+};
