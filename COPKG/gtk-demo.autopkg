@@ -1,0 +1,111 @@
+@import "version.inc";
+@import "compat.inc";
+@import "outercurve.inc";
+
+#define { 
+    flavor: "${comp??vc10}"; 
+    arch : "${plat??x86}";
+}
+
+package {
+    name: "gtk-demo[${flavor}]";
+    version: "${package-version}";
+    arch : "${arch}";
+
+    display-name: "GTK Demo";
+    location: "http://coapp.org/repository/${OutputFilename}";
+
+    feed: "http://coapp.org/repository/packages.atom.xml";
+    publisher: "CoApp Project";
+}
+
+license[LGPL2] {
+	license: @"..\COPYING";
+    license-url: "http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html";
+    license-type: "LGPL";
+}
+
+requires {
+    package: "gtk+[${flavor}]-${package-version}-${Package.Architecture}-${Package.PublicKeyToken}";
+    package: "glib[${flavor}]-${glib-dep-version}-${Package.Architecture}-${glib-dep-publickeytoken}";
+    package: "pango[${flavor}]-${pango-dep-version}-${Package.Architecture}-${pango-dep-publickeytoken}";
+    package: "cairo[${flavor}]-${cairo-dep-version}-${Package.Architecture}-${cairo-dep-publickeytoken}";
+    package: "gdk-pixbuf[${flavor}]-${gdk-pixbuf-dep-version}-${Package.Architecture}-${gdk-pixbuf-dep-publickeytoken}";
+}
+
+metadata {  
+    summary: "GTK Demo";
+    description: @"A set of GTK code examples built into a single program.";
+    author-version : "${author-version}";
+    bug-tracker: "https://github.com/coapp-packages/gtk/issues";
+    stability : "0";
+    licenses : {
+        LGPL2
+    };
+}
+
+signing {
+    attributes : {
+        company="Outercurve Foundation",
+        description="A set of GTK code examples built into a single program.",
+        product-name="GTK Demo",
+        product-version="${package-version}",
+        file-version="${package-version}",
+    };
+
+    replace-signature: true; 
+    include: { 
+        exes
+    };
+}
+
+manifest[gtk] {
+    assembly : {
+        "gtk+[${flavor}]",
+        "glib[${flavor}]",
+        "pango[${flavor}]",
+        "cairo[${flavor}]",
+        "gdk-pixbuf[${flavor}]",
+    };
+
+    include : { 
+        exes
+    };
+}
+
+application {
+    include : {
+        programfiles,
+        exes,
+    };
+}
+
+package-composition {
+    symlinks : { 
+        exes => @"${bin}\${each.Name}" = @"${packagedir}\bin\${each.Name}";
+    };
+}
+
+files[exes] {
+    root: @"..\vs10\Win32\bin\gtk-demo";
+
+	destination: "bin";
+	
+    include: {
+        "gtk-demo.exe",
+    };
+
+    trim-path: all;
+};
+
+files[programfiles] {
+    root: @"..\vs10\Win32\bin\gtk-demo";
+
+	destination: @"share\gtk-2.0\demo";
+	
+    include: {
+        "**",
+    };
+
+    trim-path: none;
+};
