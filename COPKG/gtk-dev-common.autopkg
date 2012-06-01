@@ -1,0 +1,59 @@
+@import "version.inc";
+@import "compat.inc";
+@import "outercurve.inc";
+
+package {
+    name: "gtk+-dev-common";
+    version: "${package-version}";
+    arch : "any";
+
+    display-name: "GTK+ Dev Common";
+    location: "http://coapp.org/repository/${OutputFilename}";
+
+    feed: "http://coapp.org/repository/packages.atom.xml";
+    publisher: "CoApp Project";
+}
+
+license[LGPL2] {
+	license: @"..\COPYING";
+    license-url: "http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html";
+    license-type: "LGPL";
+}
+
+metadata {  
+    summary: "GTK+";
+    description: @"GTK+ is a multi-platform toolkit for creating graphical user interfaces.";
+    author-version : "${author-version}";
+    bug-tracker: "https://github.com/coapp-packages/gtk/issues";
+    stability : "0";
+    licenses : {
+        LGPL2
+    };
+}
+
+developer-library[gtk+] {
+    headers: { 
+        headers,
+        configheader
+    };
+}
+
+files[headers] {
+    root: @"..\vs10\Win32\include\gtk-2.0";
+
+    include: {
+        "**",
+    };
+
+    trim-path: none;
+};
+
+files[configheader] {
+    root: @"..\vs10\Win32\lib\gtk-2.0\include";
+
+    include: {
+        "gdkconfig.h",
+    };
+
+    trim-path: all;
+};

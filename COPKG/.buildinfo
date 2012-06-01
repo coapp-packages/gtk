@@ -57,12 +57,14 @@ package {
 
 	build-command: @"
         cd COPKG
+        autopackage gtk+-dev-common.autopkg || goto failed
         autopackage gtk+.autopkg gtk-demo.autopkg || goto failed
 	";
 
 	targets: {
 		@"COPKG\gtk+[vc10]-${package-version}-x86.msi",
 		@"COPKG\gtk-demo[vc10]-${package-version}-x86.msi",
+		@"COPKG\gtk+-dev-common-${package-version}-any.msi",
 	};
 
 	clean-command: @"
