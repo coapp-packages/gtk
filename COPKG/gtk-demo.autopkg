@@ -81,8 +81,8 @@ application {
 }
 
 package-composition {
-    symlinks : { 
-        exes => @"${bin}\${each.Name}" = @"${packagedir}\bin\${each.Name}";
+    shortcut : { 
+        @"${allprograms}\GTK demo.lnk" = @"${packagedir}\bin\gtk-demo.exe";
     };
 }
 
