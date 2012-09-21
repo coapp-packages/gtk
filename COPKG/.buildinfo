@@ -57,7 +57,7 @@ package {
 
 	build-command: @"
         cd COPKG
-        autopackage gtk+-dev-common.autopkg || goto failed
+        autopackage gtk-dev-common.autopkg || goto failed
         autopackage gtk+.autopkg gtk-demo.autopkg || goto failed
 	";
 
