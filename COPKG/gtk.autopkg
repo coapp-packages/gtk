@@ -8,7 +8,7 @@
 }
 
 package {
-    name: "gtk+[${flavor}]";
+    name: "gtk[${flavor}]";
     version: "${package-version}";
     arch : "${arch}";
 
@@ -90,7 +90,7 @@ manifest[gdk] {
     };
 }
 
-assembly[gtk+[${flavor}]] {
+assembly[gtk[${flavor}]] {
     include : {
         gtkdll,
 		gdkdll

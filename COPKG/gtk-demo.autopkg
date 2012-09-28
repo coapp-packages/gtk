@@ -26,7 +26,7 @@ license[LGPL2] {
 }
 
 requires {
-    package: "gtk+[${flavor}]-${package-version}-${Package.Architecture}-${Package.PublicKeyToken}";
+    package: "gtk[${flavor}]-${package-version}-${Package.Architecture}-${Package.PublicKeyToken}";
     package: "glib[${flavor}]-${glib-dep-version}-${Package.Architecture}-${glib-dep-publickeytoken}";
     package: "pango[${flavor}]-${pango-dep-version}-${Package.Architecture}-${pango-dep-publickeytoken}";
     package: "cairo[${flavor}]-${cairo-dep-version}-${Package.Architecture}-${cairo-dep-publickeytoken}";
@@ -61,7 +61,7 @@ signing {
 
 manifest[gtk] {
     assembly : {
-        "gtk+[${flavor}]",
+        "gtk[${flavor}]",
         "glib[${flavor}]",
         "pango[${flavor}]",
         "cairo[${flavor}]",

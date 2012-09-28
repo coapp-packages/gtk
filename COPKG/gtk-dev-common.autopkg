@@ -3,7 +3,7 @@
 @import "outercurve.inc";
 
 package {
-    name: "gtk+-dev-common";
+    name: "gtk-dev-common";
     version: "${package-version}";
     arch : "any";
 
@@ -31,7 +31,7 @@ metadata {
     };
 }
 
-developer-library[gtk+] {
+developer-library[gtk] {
     headers: { 
         headers,
         configheader
