@@ -65,12 +65,13 @@ package {
         if ""${noversion}"" neq ""true"" ptk update-version
         cd COPKG
         autopackage gtk-dev-common.autopkg || goto failed
-        autopackage gtk.autopkg gtk-demo.autopkg || goto failed
+        autopackage gtk.autopkg gtk-dev.autopkg gtk-demo.autopkg || goto failed
 	";
 
 	targets: {
 		@"COPKG\gtk[vc10]-${NewVersion}-x86.msi",
 		@"COPKG\gtk-demo[vc10]-${NewVersion}-x86.msi",
+		@"COPKG\gtk-dev[vc10]-${NewVersion}-x86.msi",
 		@"COPKG\gtk-dev-common-${NewVersion}-any.msi",
 	};
 

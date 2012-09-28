@@ -1,0 +1,64 @@
+@import "version.inc";
+@import "compat.inc";
+@import "outercurve.inc";
+
+#define { 
+    flavor: "${comp??vc10}"; 
+    arch : "${plat??x86}";
+}
+
+package {
+    name: "gtk-dev[${flavor}]";
+    version: "${package-version}";
+    arch : "${arch}";
+
+    display-name: "GTK+ Dev";
+    location: "http://coapp.org/repository/${OutputFilename}";
+
+    feed: "http://coapp.org/repository/packages.atom.xml";
+    publisher: "CoApp Project";
+}
+
+license[LGPL2] {
+	license: @"..\COPYING";
+    license-url: "http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html";
+    license-type: "LGPL";
+}
+
+requires {
+    package: "gtk[${flavor}]-${package-version}-${Package.Architecture}-${Package.PublicKeyToken}";
+    package: "gtk-dev-common-${package-version}-any-${Package.PublicKeyToken}";
+	package: "glib-dev[${flavor}]-${glib-dep-version}-${arch}-${glib-dep-publickeytoken}";
+	package: "pango-dev[${flavor}]-${pango-dep-version}-${arch}-${pango-dep-publickeytoken}";
+	package: "cairo-dev[${flavor}]-${cairo-dep-version}-${arch}-${cairo-dep-publickeytoken}";
+	package: "gdk-pixbuf-dev[${flavor}]-${gdk-pixbuf-dep-version}-${arch}-${gdk-pixbuf-dep-publickeytoken}";
+	package: "atk-dev[${flavor}]-${atk-dep-version}-${arch}-${atk-dep-publickeytoken}";
+}
+
+metadata {  
+    summary: "GTK+";
+    description: @"GTK+ is a multi-platform toolkit for creating graphical user interfaces.";
+    author-version : "${package-version}";
+    bug-tracker: "https://github.com/coapp-packages/gtk/issues";
+    stability : "0";
+    licenses : {
+        LGPL2
+    };
+}
+
+files[libs] {
+    root: @"..\vs10\Win32\lib\";
+
+    include: {
+        "gdk-win32-2.0.lib",
+        "gtk-win32-2.0.lib",
+    };
+
+    trim-path: all;
+};
+
+developer-library[gtk[${flavor}]] {
+    libraries : {
+        libs,
+    };
+}
