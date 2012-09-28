@@ -36,7 +36,7 @@ requires {
 metadata {  
     summary: "GTK Demo";
     description: @"A set of GTK code examples built into a single program.";
-    author-version : "${author-version}";
+    author-version : "${package-version}";
     bug-tracker: "https://github.com/coapp-packages/gtk/issues";
     stability : "0";
     licenses : {

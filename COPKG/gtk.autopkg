@@ -37,7 +37,7 @@ requires {
 metadata {  
     summary: "GTK+";
     description: @"GTK+ is a multi-platform toolkit for creating graphical user interfaces.";
-    author-version : "${author-version}";
+    author-version : "${package-version}";
     bug-tracker: "https://github.com/coapp-packages/gtk/issues";
     stability : "0";
     licenses : {
